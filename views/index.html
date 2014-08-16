@@ -12,7 +12,7 @@
         bottom: 0;
         left: 0;
         margin:auto;
-        width: 40%;
+        width: 50%;
         height:75%;
         margin-top: 10%;
     }
@@ -26,13 +26,19 @@
           var session = OT.initSession(apiKey, sessionId);
          
           session.on("streamCreated", function(event) {
-                session.subscribe(event.stream, 'you');
+                session.subscribe(event.stream);
+
+                // var pubElement = document.getElementById(session.id);
+                // pubElement.style.position = 'absolute';
+                // pubElement.style.left = "50em";
+                // pubElement.style.top = "10%";
           });
          
           session.connect(token, function(error) {
             var publisher = OT.initPublisher();
-            session.publish(publisher, 'me');
-          });
+            session.publish(publisher);
+          });   
+
     </script>
 </head>
 <body>
