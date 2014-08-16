@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ACE in Action</title>
+    <link rel="stylesheet" type="text/css" href="styles/login.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div id="main-login" class="col-sm-6 col-md-4 col-md-offset-4">
+
+                <div class="account-wall">
+                    <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
+                    alt="">
+                    <form class="form-signin">
+
+                    <input type="text" class="form-control" placeholder="Username" required autofocus>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" id="create">
+                        Create Room</button>
+
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" id="join">
+                        Join</button>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script type="text/javascript">
+$('#create').on('click', function(e){
+    e.preventDefault();
+
+
+    window.location = window.location + 'create';
+});
+
+$('#join').on('click', function(e){
+    e.preventDefault();
+
+    // $.ajax({
+    //   url: '/create',
+    //   success: function(e){
+    //     console.log(e);
+    // }})
+    var id = prompt("Please enter a room ID", "sessin ID");
+    if(id){
+        var rooms = Parse.Object.extend("rooms");
+        var query = new Parse.Query(rooms);
+        query.equalTo("session", id);
+        query.first({
+            success: function(object) {
+                window.location = window.location + 'join?id=' + id;
+            },
+            error: function(error) {
+                alert("Error: " + error.code + " " + error.message);
+            }
+        });
+    }
+
+});
+
+</script>
+</body>
+</html>
